@@ -43,10 +43,10 @@ body {
     text-align: center;
 }
 #unity-logo img {
-    max-width: 50%;
+    max-width: 10%;
 }
 #unity-progress-bar-empty {
-    width: 40%;
+    width: 10%;
     height: 24px;
     margin: 10px 20px 20px 10px;
     text-align: left;
@@ -83,7 +83,7 @@ body {
 }
 .spinner {
   margin: 10px;
-  font-size: 10px;
+  font-size: 5px;
   position: relative;
   text-indent: -9999em;
   border-top: 1.1em solid rgba(255, 255, 255, 0.2);
