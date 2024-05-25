@@ -43,10 +43,10 @@ body {
     text-align: center;
 }
 #unity-logo img {
-    max-width: 10%;
+    max-width: 80%;
 }
 #unity-progress-bar-empty {
-    width: 10%;
+    width: 80%;
     height: 24px;
     margin: 10px 20px 20px 10px;
     text-align: left;
@@ -83,7 +83,7 @@ body {
 }
 .spinner {
   margin: 10px;
-  font-size: 5px;
+  font-size: 10px;
   position: relative;
   text-indent: -9999em;
   border-top: 1.1em solid rgba(255, 255, 255, 0.2);
@@ -101,32 +101,5 @@ body {
     transform: rotate(360deg);
   }
 }
-
-/* 覆盖 Web3Modal 的样式 */
-.walletconnect-qrcode__base {
-    border: 5px solid #000; /* 修改 QR 码的边框颜色 */
-    border-radius: 10px; /* 修改 QR 码的圆角 */
-}
-  
-/* 覆盖 Web3Modal 的样式 */
-.walletconnect-modal__base {
-    max-width: 300px; /* 调整弹出窗口的最大宽度 */
-    max-height: 300px; /* 调整弹出窗口的最大高度 */
-  }
-  
-  .walletconnect-qrcode__base {
-    width: 200px; /* 调整 QR 码的宽度 */
-    height: 200px; /* 调整 QR 码的高度 */
-  }
-  
-  .walletconnect-modal__container {
-    padding: 20px; /* 调整弹出窗口的内边距 */
-  }
-  
-  .walletconnect-modal__content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 
 

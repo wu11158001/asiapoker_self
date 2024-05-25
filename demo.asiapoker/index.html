@@ -11,6 +11,34 @@
 	<script src="https://cdn.jsdelivr.net/npm/web3modal@1.9.5/dist/index.min.js"></script>
     <script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk-unity.js"></script>
 
+	<style>
+    /* 自定义 Web3Modal 弹出窗口和 QR 码的样式 */
+    .web3modal-modal-lightbox {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .web3modal-modal-card {
+      max-width: 300px;  /* 修改弹出窗口的宽度 */
+      max-height: 300px; /* 修改弹出窗口的高度 */
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .web3modal-provider-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .web3modal-qrcode-container {
+      width: 200px; /* 修改 QR 码的宽度 */
+      height: 200px; /* 修改 QR 码的高度 */
+    }
+  </style>
+
   </head>
   <body class="dark">
     <div id="unity-container" class="unity-desktop">
