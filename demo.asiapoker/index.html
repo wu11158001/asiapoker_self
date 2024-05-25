@@ -75,10 +75,9 @@
                 createUnityInstance(canvas, config, (progress) => {
                   spinner.style.display = "none";
                   progressBarEmpty.style.display = "";
-                  progressBarFull.style.width = `${100 * progress}%`;
+                  progressBarFull.style.width = `${110 * progress}%`;
                 }).then((unityInstance) => {
                   loadingCover.style.display = "none";
-				  progressBarFull.style.width = `${100}%`;
 				  
                   if (canFullscreen) {
                     if (!hideFullScreenButton) {
