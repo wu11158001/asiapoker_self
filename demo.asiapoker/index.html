@@ -65,7 +65,7 @@
 
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
               container.className = "unity-mobile";
-              config.devicePixelRatio = window.devicePixelRatio || 3;
+              config.devicePixelRatio = 3;
             }
             loadingCover.style.display = "";
             const script = document.createElement("script");
@@ -75,7 +75,7 @@
                 createUnityInstance(canvas, config, (progress) => {
                   spinner.style.display = "none";
                   progressBarEmpty.style.display = "";
-                  progressBarFull.style.width = `${100 * progress}%`;
+                  progressBarFull.style.width = `${110 * progress}%`;
 				  
                 }).then((unityInstance) => {
                   loadingCover.style.display = "none";
