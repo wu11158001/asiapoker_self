@@ -97,8 +97,9 @@
                         const urlParams = new URLSearchParams(window.location.search);
                         const code = urlParams.get('code');
                         const state = urlParams.get('state');
-						window.unityInstance.SendMessage("Entry","OnLineLoginCallback", code);
-
+                        if (code) {
+                            onLineLoginCallback(code, state);
+                        }
                     }).catch((message) => {
                         alert(message);
                     });
@@ -107,7 +108,7 @@
             document.body.appendChild(script);
         };
 
-        /*//Line登入傳遞授權碼
+        //Line登入傳遞授權碼
         function onLineLoginCallback(code, state) {
             if (window.unityInstance) {
                 console.log("Line登入 傳遞授權碼");
@@ -115,7 +116,7 @@
             } else {
                 console.error("Unity instance not found.");
             }
-        }*/
+        }
     </script>
 </body>
 </html>
