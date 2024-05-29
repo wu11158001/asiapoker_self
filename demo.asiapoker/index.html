@@ -105,19 +105,19 @@
                   unityInstance.SendMessage('Entry', 'OnWindowFocus');
                   });
 
+                  //Line登入回傳
                   function onLineLoginCallback(code, state) {
                       // 传递授权码给Unity
                       SendMessage('LoginView', 'OnLineLoginCallback', code);
                   }
-
-                  window.onload = function() {
+                  window.addEventListener('load', function() {
                       const urlParams = new URLSearchParams(window.location.search);
                       const code = urlParams.get('code');
                       const state = urlParams.get('state');
                       if (code) {
                           onLineLoginCallback(code, state);
                       }
-                  };
+                  });
 			  
 
 				  
