@@ -144,6 +144,7 @@
 					  }
 					  unityInstance.SendMessage('Entry', 'HtmlDebug', 'browserName:'+browserName);
 					  unityInstance.SendMessage('Entry', 'HtmlDebug', 'fullVersion:'+fullVersion);
+					  unityInstance.SendMessage('Entry', 'GetBrowserVersion', fullVersion);
 				  }
 				  getBrowserInfo();
 				  
