@@ -108,7 +108,8 @@
                   //Line登入回傳
                   function onLineLoginCallback(code, state) {
                       // 传递授权码给Unity
-                      SendMessage('LoginView', 'OnLineLoginCallback', code);
+                      console.log("Line登入 傳遞授權碼");
+                      unityInstance.SendMessage('LoginView', 'OnLineLoginCallback', code);
                   }
                   window.addEventListener('load', function() {
                       const urlParams = new URLSearchParams(window.location.search);
