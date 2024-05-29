@@ -105,48 +105,6 @@
 					unityInstance.SendMessage('Entry', 'OnWindowFocus');
 				  });
 
-				  //瀏覽器訊息
-				  function getBrowserInfo() {
-					  unityInstance.SendMessage('Entry', 'HtmlDebug', 'GetBrowserInfo');
-					  /*const userAgent = navigator.userAgent;
-					  const appName = navigator.appName;
-					  const appVersion = navigator.appVersion;
-					  const platform = navigator.platform;
-					  const language = navigator.language;
-
-					  unityInstance.SendMessage('Entry', 'HtmlDebug', 'userAgent:'+userAgent);
-					  unityInstance.SendMessage('Entry', 'HtmlDebug', 'appName:'+appName);
-					  unityInstance.SendMessage('Entry', 'HtmlDebug', 'appVersion:'+appVersion);
-					  unityInstance.SendMessage('Entry', 'HtmlDebug', 'platform:'+platform);
-					  unityInstance.SendMessage('Entry', 'HtmlDebug', 'language:'+language);*/
-					  
-					  const userAgent = navigator.userAgent;
-					  let browserName, fullVersion;
-
-					  if (userAgent.indexOf("Chrome") > -1) {
-					  	  browserName = "Chrome";
-						  fullVersion = userAgent.substring(userAgent.indexOf("Chrome") + 7);
-						  fullVersion = fullVersion.substring(0, fullVersion.indexOf(" "));
-					  } else if (userAgent.indexOf("Safari") > -1) {
-						  browserName = "Safari";
-						  fullVersion = userAgent.substring(userAgent.indexOf("Version") + 8);
-						  fullVersion = fullVersion.substring(0, fullVersion.indexOf(" "));
-					  } else if (userAgent.indexOf("Firefox") > -1) {
-						  browserName = "Firefox";
-						  fullVersion = userAgent.substring(userAgent.indexOf("Firefox") + 8);
-					  } else if (userAgent.indexOf("MSIE") > -1 || !!document.documentMode) {
-						  browserName = "IE";
-						  fullVersion = userAgent.substring(userAgent.indexOf("MSIE") + 5);
-						  fullVersion = fullVersion.substring(0, fullVersion.indexOf(" "));
-					  } else {
-						  browserName = "Unknown";
-						  fullVersion = "Unknown";
-					  }
-					  unityInstance.SendMessage('Entry', 'HtmlDebug', 'browserName:'+browserName);
-					  unityInstance.SendMessage('Entry', 'HtmlDebug', 'fullVersion:'+fullVersion);
-					  unityInstance.SendMessage('Entry', 'GetBrowserVersion', fullVersion);
-				  }
-				  getBrowserInfo();
 				  
                 }).catch((message) => {
                   alert(message);
