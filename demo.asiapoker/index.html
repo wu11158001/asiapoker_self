@@ -112,7 +112,7 @@
         function onLineLoginCallback(code, state) {
             if (window.unityInstance) {
                 console.log("Line登入 傳遞授權碼");
-                window.unityInstance.SendMessage('LoginView', 'OnLineLoginCallback', code);
+                window.unityInstance.SendMessage('Entry', 'OnLineLoginCallback', code);
             } else {
                 console.error("Unity instance not found.");
             }
