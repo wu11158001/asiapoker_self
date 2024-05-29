@@ -99,6 +99,7 @@
                         const state = urlParams.get('state');
                         if (code) {
                             onLineLoginCallback(code, state);
+                            window.history.pushState({}, document.title, window.location.pathname); // 清除 URL 中的参数
                         }
                     }).catch((message) => {
                         alert(message);
