@@ -26,6 +26,8 @@
     </div>
     <div id="unity-fullscreen-button" style="display: none"></div>
     <script>
+        //重定向Url
+        window.callbackUrl = 'https://wu11158001.github.io/asiapoker_self/demo.asiapoker/index.html';
         let unityInstance;
         let IsMobilePlatform;
 
@@ -127,10 +129,10 @@
                         //新開頁面解析URL
                         instance.SendMessage('Entry', 'HtmlDebug', 'start~ queryParams');
                         const queryParams = getQueryParams();
-                        const getCode = queryParams['code'];
-                        if (getCode) {
-                            instance.SendMessage('Entry', 'HtmlDebug', 'start~ queryParams::' + getCode);
-                            instance.SendMessage('Entry', 'OnLineLoginCallback', getCode);
+                        const lineMail = queryParams['linemail'];
+                        if (lineMail) {
+                            instance.SendMessage('Entry', 'HtmlDebug', 'Get~ queryParams::' + lineMail);
+                            instance.SendMessage('Entry', 'GetLineMail', lineMail);
                         }
 
 
