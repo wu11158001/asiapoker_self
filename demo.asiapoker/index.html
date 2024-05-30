@@ -125,15 +125,13 @@
                             return params;
                         }
                         //新開頁面解析URL
-                        document.addEventListener('DOMContentLoaded', () => {
-                            instance.SendMessage('Entry', 'HtmlDebug', 'start~ queryParams');
-                            const queryParams = getQueryParams();
-                            const getCode = queryParams['code'];
-                            if (getCode) {
-                                instance.SendMessage('Entry', 'HtmlDebug', 'start~ queryParams::' + getCode);
-                                window.unityInstance.SendMessage('Entry', 'OnLineLoginCallback', getCode);
-                            }
-                        });
+                        instance.SendMessage('Entry', 'HtmlDebug', 'start~ queryParams');
+                        const queryParams = getQueryParams();
+                        const getCode = queryParams['code'];
+                        if (getCode) {
+                            instance.SendMessage('Entry', 'HtmlDebug', 'start~ queryParams::' + getCode);
+                            instance.SendMessage('Entry', 'OnLineLoginCallback', getCode);
+                        }
 
 
                     }).catch((message) => {
