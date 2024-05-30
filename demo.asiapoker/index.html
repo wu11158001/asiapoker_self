@@ -100,7 +100,6 @@
                         const state = urlParams.get('state');
                         if (code) {
                             onLineLoginCallback(code, state);
-                            window.history.pushState({}, document.title, window.location.pathname); // 清除 URL 中的参数
                         }
 
                         //處理Line重定向回傳的授權碼參數
@@ -116,10 +115,8 @@
                             const params = getQueryParams();
                             if (params.code) {
                                 console.log("授权码: ", params.code);
-                                // 在这里处理 code 参数，例如发送到服务器进行验证
-                                if (window.unityInstance) {
-                                    window.unityInstance.SendMessage('Entry', 'OnLineLoginCallback', params.code);
-                                }
+                                window.unityInstance.SendMessage('Entry', 'HtmlDebug', 'Get Mobile Line Code'+ params.code);
+                                window.unityInstance.SendMessage('Entry', 'OnLineLoginCallback', params.code);
                             }
                         });
 
@@ -136,6 +133,7 @@
         function onLineLoginCallback(code, state) {
             if (window.unityInstance) {
                 console.log("Line登入 傳遞授權碼");
+                window.unityInstance.SendMessage('Entry', 'HtmlDebug', 'Get Line Code'+ params.code);
                 window.unityInstance.SendMessage('Entry', 'OnLineLoginCallback', code);
 
                 //移動平台
