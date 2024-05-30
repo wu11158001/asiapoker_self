@@ -113,7 +113,7 @@
                             onLineLoginCallback(code, state);
                         }
 
-                        //處理Line重新開瀏覽器
+                        //處理新開瀏覽器訊息
                         function getQueryParams() {
                             const params = {};
                             window.location.search.substring(1).split('&').forEach(pair => {
@@ -124,9 +124,8 @@
                         }
                         document.addEventListener('DOMContentLoaded', function() {
                             const params = getQueryParams();
-                            if (params.code) {
+                            if (params.mail) {
                                 window.unityInstance.SendMessage('Entry', 'HtmlDebug', 'Get Mobile Line Mail'+ params.mail);
-                                window.unityInstance.SendMessage('Entry', 'OnLineLoginCallback', params.code);
                             }
                         });
 
