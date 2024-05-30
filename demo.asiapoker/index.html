@@ -85,7 +85,7 @@
                         instance.SendMessage('Entry', 'IsMobilePlatform', IsMobilePlatform.toString());
 
                         //是否在Line瀏覽器內
-                        const isLineBrowser = /Line/i.test(navigator.userAgent);
+                        const isLineBrowser = /Line/i.test(navigator.userAgent)|navigator.userAgent.indexOf("Chrome") != -1 && navigator.userAgent.indexOf("Safari") == -1;
                         instance.SendMessage('Entry', 'IsLineBrowser', isLineBrowser.toString());
 
                         // 網頁視窗焦點
@@ -136,7 +136,6 @@
         function onLineLoginCallback(code, state) {
             if (window.unityInstance) {
                 console.log("Line登入 傳遞授權碼");
-                window.unityInstance.SendMessage('Entry', 'HtmlDebug', 'Get Line Code'+ params.code);
                 window.unityInstance.SendMessage('Entry', 'OnLineLoginCallback', code);
 
             } else {
