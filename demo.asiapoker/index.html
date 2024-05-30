@@ -110,10 +110,10 @@
                                 liffId: '2005465224-A0P46L7e' // 你的 LIFF ID，需要在 Line Developer Console 中创建并获取
                             }).then(() => {                               
                                 // 初始化成功后，可以在此处调用 Line 登录的代码
-                                instance.SendMessage('Entry', 'HtmlDebug', '初始化 Line SDK 完成');
+                                instance.SendMessage('Entry', 'HtmlDebug', 'initialize Line SDK OK');
                             }).catch((err) => {
                                 console.error('初始化 Line SDK 出错：', err);
-                                instance.SendMessage('Entry', 'HtmlDebug', '初始化 Line SDK 出错' + err);
+                                instance.SendMessage('Entry', 'HtmlDebug', 'initialize Line SDK Err:' + err);
                             });
                         }
                         initializeLineLogin();
