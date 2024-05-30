@@ -113,7 +113,7 @@
                             onLineLoginCallback(code, state);
                         }
 
-                        // 一個函數來解析 URL 查詢參數
+                        // 放置接收代碼的 JavaScript
                         function getQueryParams() {
                             const params = {};
                             const queryString = window.location.search.substring(1);
@@ -124,13 +124,16 @@
                             }
                             return params;
                         }
-                        // 獲取 URL 查詢參數
-                        instance.SendMessage('Entry', 'HtmlDebug', 'start~ queryParams');
-                        const queryParams = getQueryParams();
-                        instance.SendMessage('Entry', 'HtmlDebug', 'queryParams:' + queryParams);
-                        if(queryParams.code){
-                            window.unityInstance.SendMessage('Entry', 'OnLineLoginCallback', queryParams.code);
-                        }
+                        //新開頁面解析URL
+                        document.addEventListener('DOMContentLoaded', () => {
+                            instance.SendMessage('Entry', 'HtmlDebug', 'start~ queryParams');
+                            const queryParams = getQueryParams();
+                            const getCode = queryParams['code'];
+                            if (getCode) {
+                                instance.SendMessage('Entry', 'HtmlDebug', 'start~ queryParams::' + getCode);
+                                window.unityInstance.SendMessage('Entry', 'OnLineLoginCallback', getCode);
+                            }
+                        });
 
 
                     }).catch((message) => {
