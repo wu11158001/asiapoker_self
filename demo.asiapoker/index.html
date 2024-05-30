@@ -84,6 +84,10 @@
                         IsMobilePlatform = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
                         instance.SendMessage('Entry', 'IsMobilePlatform', IsMobilePlatform.toString());
 
+                        //是否在Line瀏覽器內
+                        const isLineBrowser = /Line/i.test(navigator.userAgent);
+                        instance.SendMessage('Entry', 'IsLineBrowser', isLineBrowser.toString());
+
                         // 網頁視窗焦點
                         window.addEventListener("blur", function() {
                             instance.SendMessage('Entry', 'OnWindowBlur');
@@ -102,7 +106,7 @@
                             onLineLoginCallback(code, state);
                         }
 
-                        //處理Line重定向回傳的授權碼參數
+                        //處理Line重新開瀏覽器
                         function getQueryParams() {
                             const params = {};
                             window.location.search.substring(1).split('&').forEach(pair => {
@@ -114,8 +118,7 @@
                         document.addEventListener('DOMContentLoaded', function() {
                             const params = getQueryParams();
                             if (params.code) {
-                                console.log("授权码: ", params.code);
-                                window.unityInstance.SendMessage('Entry', 'HtmlDebug', 'Get Mobile Line Code'+ params.code);
+                                window.unityInstance.SendMessage('Entry', 'HtmlDebug', 'Get Mobile Line Mail'+ params.mail);
                                 window.unityInstance.SendMessage('Entry', 'OnLineLoginCallback', params.code);
                             }
                         });
@@ -135,17 +138,6 @@
                 console.log("Line登入 傳遞授權碼");
                 window.unityInstance.SendMessage('Entry', 'HtmlDebug', 'Get Line Code'+ params.code);
                 window.unityInstance.SendMessage('Entry', 'OnLineLoginCallback', code);
-
-                //移動平台
-                if(IsMobilePlatform){
-                    // 使用 sessionStorage 防止循环重定向
-                    if (!sessionStorage.getItem('redirected')) {
-                        sessionStorage.setItem('redirected', 'true');
-                        const targetUrl = `https://wu11158001.github.io/asiapoker_self/demo.asiapoker/index.html?code=${encodeURIComponent(code)}&state=${encodeURIComponent(state)}`;
-                        const intentUrl = `intent://${targetUrl.replace(/^https?:\/\//, '')}#Intent;scheme=http;package=com.android.chrome;end;`;
-                        window.location.href = intentUrl;
-                    }
-                }
 
             } else {
                 console.error("Unity instance not found.");
