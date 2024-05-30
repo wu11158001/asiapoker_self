@@ -62,83 +62,88 @@
             const script = document.createElement("script");
             script.src = loaderUrl;
             script.onload = () => {
-                createUnityInstance(canvas, config, (progress) => {
-                    spinner.style.display = "none";
-                    progressBarEmpty.style.display = "";
-                    progressBarFull.style.width = `${110 * progress}%`;
+                import('./lib/thirdweb-unity-bridge.js').then(module => {
+                    createUnityInstance(canvas, config, (progress) => {
+                        spinner.style.display = "none";
+                        progressBarEmpty.style.display = "";
+                        progressBarFull.style.width = `${110 * progress}%`;
 
-                }).then((instance) => {
-                    loadingCover.style.display = "none";
-                    if (canFullscreen) {
-                        if (!hideFullScreenButton) {
-                            fullscreenButton.style.display = "";
+                    }).then((instance) => {
+                        loadingCover.style.display = "none";
+                        if (canFullscreen) {
+                            if (!hideFullScreenButton) {
+                                fullscreenButton.style.display = "";
+                            }
+                            fullscreenButton.onclick = () => {
+                                instance.SetFullscreen(1);
+                            };
                         }
-                        fullscreenButton.onclick = () => {
-                            instance.SetFullscreen(1);
-                        };
-                    }
-                    window.unityInstance = instance;
+                        window.unityInstance = instance;
 
-                    // 檢測平台
-                    IsMobilePlatform = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-                    instance.SendMessage('Entry', 'IsMobilePlatform', IsMobilePlatform.toString());
+                        // 檢測平台
+                        IsMobilePlatform = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                        instance.SendMessage('Entry', 'IsMobilePlatform', IsMobilePlatform.toString());
 
-                    // 是否在預設瀏覽器內
-                    const isDefaultBrowser = (navigator.userAgent.includes("Samsung Browser") || navigator.userAgent.includes("SamsungBrowser")) ||
-                                             (navigator.userAgent.includes("EMUI Browser") || navigator.userAgent.includes("EMUIBrowser")) ||
-                                             (navigator.userAgent.includes("MIUI Browser") || navigator.userAgent.includes("MIUIBrowser")) ||
-                                             (navigator.userAgent.includes("OPPO Browser") || navigator.userAgent.includes("OPPOBrowser")) ||
-                                             (navigator.userAgent.includes("vivo Browser") || navigator.userAgent.includes("vivoBrowser")) ||
-                                             (navigator.userAgent.includes("OnePlus Browser") || navigator.userAgent.includes("OnePlusBrowser")) ||
-                                             (navigator.userAgent.includes("Sony Browser") || navigator.userAgent.includes("SonyBrowser")) ||
-                                             (navigator.userAgent.includes("LG Browser") || navigator.userAgent.includes("LGBrowser"));
-                    instance.SendMessage('Entry', 'IsDefaultBrowser', isDefaultBrowser.toString());
+                        //是否在預設瀏覽器內
+                        const isDefaultBrowser = (navigator.userAgent.includes("Samsung Browser") || navigator.userAgent.includes("SamsungBrowser")) ||
+                                                 (navigator.userAgent.includes("EMUI Browser") || navigator.userAgent.includes("EMUIBrowser")) ||
+                                                 (navigator.userAgent.includes("MIUI Browser") || navigator.userAgent.includes("MIUIBrowser")) ||
+                                                 (navigator.userAgent.includes("OPPO Browser") || navigator.userAgent.includes("OPPOBrowser")) ||
+                                                 (navigator.userAgent.includes("vivo Browser") || navigator.userAgent.includes("vivoBrowser")) ||
+                                                 (navigator.userAgent.includes("OnePlus Browser") || navigator.userAgent.includes("OnePlusBrowser")) ||
+                                                 (navigator.userAgent.includes("Sony Browser") || navigator.userAgent.includes("SonyBrowser")) ||
+                                                 (navigator.userAgent.includes("LG Browser") || navigator.userAgent.includes("LGBrowser"));
+                        instance.SendMessage('Entry', 'IsDefaultBrowser', isDefaultBrowser.toString());
 
-                    // 網頁視窗焦點
-                    window.addEventListener("blur", function() {
-                        instance.SendMessage('Entry', 'OnWindowBlur');
-                    });
-
-                    // 頁面窗口獲得焦點
-                    window.addEventListener("focus", function() {
-                        instance.SendMessage('Entry', 'OnWindowFocus');
-                    });
-
-                    // 检查 URL 参数并传递授权码给 Unity
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const code = urlParams.get('code');
-                    const state = urlParams.get('state');
-                    if (code) {
-                        onLineLoginCallback(code, state);
-                    }
-
-                    //處理新開瀏覽器訊息
-                    function getQueryParams() {
-                        const params = {};
-                        window.location.search.substring(1).split('&').forEach(pair => {
-                            const [key, value] = pair.split('=');
-                            params[decodeURIComponent(key)] = decodeURIComponent(value || '');
+                        // 網頁視窗焦點
+                        window.addEventListener("blur", function() {
+                            instance.SendMessage('Entry', 'OnWindowBlur');
                         });
-                        return params;
-                    }
-                    document.addEventListener('DOMContentLoaded', function() {
-                        const params = getQueryParams();
-                        if (params.mail) {
-                            window.unityInstance.SendMessage('Entry', 'HtmlDebug', 'Get Mobile Line Mail ' + params.mail);
-                        }
-                    });
 
-                }).catch((message) => {
-                    alert(message);
+                        // 頁面窗口獲得焦點
+                        window.addEventListener("focus", function() {
+                            instance.SendMessage('Entry', 'OnWindowFocus');
+                        });
+
+                        // 检查 URL 参数并传递授权码给 Unity
+                        const urlParams = new URLSearchParams(window.location.search);
+                        const code = urlParams.get('code');
+                        const state = urlParams.get('state');
+                        if (code) {
+                            onLineLoginCallback(code, state);
+                        }
+
+                        //處理新開瀏覽器
+                        function getQueryParams() {
+                            const params = {};
+                            window.location.search.substring(1).split('&').forEach(pair => {
+                                const [key, value] = pair.split('=');
+                                params[decodeURIComponent(key)] = decodeURIComponent(value || '');
+                            });
+                            return params;
+                        }
+                        document.addEventListener('DOMContentLoaded', function() {
+                            window.unityInstance.SendMessage('Entry', 'HtmlDebug', 'Start Get Mobile Line Code');
+                            const params = getQueryParams();
+                            if (params.code) {
+                                window.unityInstance.SendMessage('Entry', 'HtmlDebug', 'Get Mobile Line Code'+ params.code);
+                                window.unityInstance.SendMessage('Entry', 'OnLineLoginCallback', params.code);
+                            }
+                        });
+
+
+                    }).catch((message) => {
+                        alert(message);
+                    });
                 });
             };
             document.body.appendChild(script);
         };
 
-        // Line登入傳遞授權碼
+        //Line登入傳遞授權碼
         function onLineLoginCallback(code, state) {
             if (window.unityInstance) {
-                console.log("Line登入 傳遞授權碼");
+                console.log("Line Login And Get Code");
                 window.unityInstance.SendMessage('Entry', 'OnLineLoginCallback', code);
 
             } else {
