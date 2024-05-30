@@ -113,23 +113,24 @@
                             onLineLoginCallback(code, state);
                         }
 
-                        //處理新開瀏覽器
+                        // 一個函數來解析 URL 查詢參數
                         function getQueryParams() {
                             const params = {};
-                            window.location.search.substring(1).split('&').forEach(pair => {
-                                const [key, value] = pair.split('=');
-                                params[decodeURIComponent(key)] = decodeURIComponent(value || '');
-                            });
+                            const queryString = window.location.search.substring(1);
+                            const regex = /([^&=]+)=([^&]*)/g;
+                            let match;
+                            while (match = regex.exec(queryString)) {
+                                params[decodeURIComponent(match[1])] = decodeURIComponent(match[2]);
+                            }
                             return params;
                         }
-                        document.addEventListener('DOMContentLoaded', function() {
-                            window.unityInstance.SendMessage('Entry', 'HtmlDebug', 'Start Get Mobile Line Code');
-                            const params = getQueryParams();
-                            if (params.code) {
-                                window.unityInstance.SendMessage('Entry', 'HtmlDebug', 'Get Mobile Line Code'+ params.code);
-                                window.unityInstance.SendMessage('Entry', 'OnLineLoginCallback', params.code);
-                            }
-                        });
+                        // 獲取 URL 查詢參數
+                        instance.SendMessage('Entry', 'HtmlDebug', 'start~ queryParams');
+                        const queryParams = getQueryParams();
+                        instance.SendMessage('Entry', 'HtmlDebug', 'queryParams:' + queryParams);
+                        if(queryParams.code){
+                            window.unityInstance.SendMessage('Entry', 'OnLineLoginCallback', queryParams.code);
+                        }
 
 
                     }).catch((message) => {
