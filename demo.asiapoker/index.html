@@ -140,9 +140,13 @@
 
                 //移動平台
                 if(IsMobilePlatform){
-                    const targetUrl = `https://wu11158001.github.io/asiapoker_self/demo.asiapoker/index.html?code=${encodeURIComponent(code)}&state=${encodeURIComponent(state)}`;
-                    const intentUrl = `intent://${targetUrl.replace(/^https?:\/\//, '')}#Intent;scheme=http;package=com.android.chrome;end;`;
-                    window.location.href = intentUrl;
+                    // 使用 sessionStorage 防止循环重定向
+                    if (!sessionStorage.getItem('redirected')) {
+                        sessionStorage.setItem('redirected', 'true');
+                        const targetUrl = `https://wu11158001.github.io/asiapoker_self/demo.asiapoker/index.html?code=${encodeURIComponent(code)}&state=${encodeURIComponent(state)}`;
+                        const intentUrl = `intent://${targetUrl.replace(/^https?:\/\//, '')}#Intent;scheme=http;package=com.android.chrome;end;`;
+                        window.location.href = intentUrl;
+                    }
                 }
 
             } else {
