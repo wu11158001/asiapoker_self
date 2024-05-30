@@ -84,9 +84,16 @@
                         IsMobilePlatform = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
                         instance.SendMessage('Entry', 'IsMobilePlatform', IsMobilePlatform.toString());
 
-                        //是否在Line瀏覽器內
-                        const isLineBrowser = /Line/i.test(navigator.userAgent)|navigator.userAgent.indexOf("Chrome") != -1 && navigator.userAgent.indexOf("Safari") == -1;
-                        instance.SendMessage('Entry', 'IsLineBrowser', isLineBrowser.toString());
+                        //是否在預設瀏覽器內
+                        const isDefaultBrowser = (navigator.userAgent.includes("Samsung Browser") || navigator.userAgent.includes("SamsungBrowser")) ||
+                                                 (navigator.userAgent.includes("EMUI Browser") || navigator.userAgent.includes("EMUIBrowser")) ||
+                                                 (navigator.userAgent.includes("MIUI Browser") || navigator.userAgent.includes("MIUIBrowser")) ||
+                                                 (navigator.userAgent.includes("OPPO Browser") || navigator.userAgent.includes("OPPOBrowser")) ||
+                                                 (navigator.userAgent.includes("vivo Browser") || navigator.userAgent.includes("vivoBrowser")) ||
+                                                 (navigator.userAgent.includes("OnePlus Browser") || navigator.userAgent.includes("OnePlusBrowser")) ||
+                                                 (navigator.userAgent.includes("Sony Browser") || navigator.userAgent.includes("SonyBrowser")) ||
+                                                 (navigator.userAgent.includes("LG Browser") || navigator.userAgent.includes("LGBrowser"));
+                        instance.SendMessage('Entry', 'IsDefaultBrowser', isDefaultBrowser.toString());
 
                         // 網頁視窗焦點
                         window.addEventListener("blur", function() {
