@@ -150,9 +150,7 @@
                             instance.SendMessage('Entry', 'ReceiveIGInfo', igIdAndName);
                         }
 
-                        function hasPlugin(name){
-                            //转换为小写
-                            name = name.toLowerCase();
+                        function hasPlugin(){
                             for(var i = 0; i<navigator.plugins.length; i++){
                                 
                                 instance.SendMessage('Entry', 'HtmlDebug', 'hasPlugin:'+navigator.plugins[i].name.toLowerCase());
