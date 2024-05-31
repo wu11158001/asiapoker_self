@@ -28,7 +28,8 @@
     <div id="unity-fullscreen-button" style="display: none"></div>
     <script>
         //重定向Url
-        window.callbackUrl = 'https://kooco.github.io/ACEdemo/demo.asiapoker/index.html';
+        //window.callbackUrl = 'https://kooco.github.io/ACEdemo/demo.asiapoker/index.html';
+        window.callbackUrl = 'https://wu11158001.github.io/asiapoker_self/demo.asiapoker/index.html';
         //IG APP ID
         window.igAppId = '1019674972416526';
         let unityInstance;
@@ -114,8 +115,13 @@
                         const urlParams = new URLSearchParams(window.location.search);
                         const code = urlParams.get('code');
                         const state = urlParams.get('state');
-                        if (code) {
+                        if (code && state) {
+                            //Line登入回傳
                             onLineLoginCallback(code, state);
+                        }
+                        if(code) {
+                            //IG登入回傳
+                            onIGLoginCallback(code);
                         }
 
                         // 放置接收代碼的 JavaScript
@@ -132,28 +138,10 @@
                         //新開頁面解析URL
                         const queryParams = getQueryParams();
                         const lineMail = queryParams['linemail'];
-                        if (lineMail) {
-                            instance.SendMessage('Entry', 'ReceiveLineMail', lineMail);
-                        }
-
-                        //IG訊息
-                        window.fbAsyncInit = function() {
-                            FB.init({
-                                appId      : window.igAppId,
-                                cookie     : true,
-                                xfbml      : true,
-                                version    : 'v9.0'
-                            });
-
-                            FB.AppEvents.logPageView();   
-                        };
-                        (function(d, s, id){
-                        var js, fjs = d.getElementsByTagName(s)[0];
-                            if (d.getElementById(id)) {return;}
-                            js = d.createElement(s); js.id = id;
-                            js.src = "https://connect.facebook.net/en_US/sdk.js";
-                            fjs.parentNode.insertBefore(js, fjs);
-                        }(document, 'script', 'facebook-jssdk'));
+                        const igIdAndName = queryParams['igIdAndName'];
+                        instance.SendMessage('Entry', 'HtmlDebug', 'lineMail:'+lineMail);
+                        instance.SendMessage('Entry', 'HtmlDebug', 'igIdAndName:'+igIdAndName);
+                        instance.SendMessage('Entry', 'ReceiveLineMail', lineMail);
 
                     }).catch((message) => {
                         alert(message);
@@ -168,6 +156,17 @@
             if (window.unityInstance) {
                 console.log("Line Login And Get Code");
                 window.unityInstance.SendMessage('Entry', 'OnLineLoginCallback', code);
+
+            } else {
+                console.error("Unity instance not found.");
+            }
+        }
+
+        //IG登入傳遞授權碼
+        function onIGLoginCallback(code) {
+            if (window.unityInstance) {
+                console.log("IG Login And Get Code");
+                window.unityInstance.SendMessage('Entry', 'OnIGLoginCallback', code);
 
             } else {
                 console.error("Unity instance not found.");
