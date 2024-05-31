@@ -141,7 +141,15 @@
                         const igIdAndName = queryParams['igIdAndName'];
                         instance.SendMessage('Entry', 'HtmlDebug', 'lineMail:'+lineMail);
                         instance.SendMessage('Entry', 'HtmlDebug', 'igIdAndName:'+igIdAndName);
-                        instance.SendMessage('Entry', 'ReceiveLineMail', lineMail);
+                        if(lineMail) {
+                            //Line
+                            instance.SendMessage('Entry', 'ReceiveLineMail', lineMail);
+                        }
+                        if(igIdAndName) {
+                            //IG
+                            instance.SendMessage('Entry', 'ReceiveIGInfo', igIdAndName);
+                        }
+                        
 
                     }).catch((message) => {
                         alert(message);
@@ -165,7 +173,7 @@
         //IG登入傳遞授權碼
         function onIGLoginCallback(code) {
             if (window.unityInstance) {
-                console.log("IG Login And Get Code");
+                console.log("IG Login And Get Code:" + code);
                 window.unityInstance.SendMessage('Entry', 'OnIGLoginCallback', code);
 
             } else {
