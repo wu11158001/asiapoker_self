@@ -102,11 +102,15 @@
                         instance.SendMessage('Entry', 'IsDefaultBrowser', isDefaultBrowser.toString());
 
 
-                        const isInCoinbase = navigator.userAgent.includes('Coinbase');
-                        instance.SendMessage('Entry', 'HtmlDebug', 'isInCoinbase:'+isInCoinbase);
+                        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+                        var isInCoinbase = /Coinbase/i.test(userAgent) ? "true" : "false";
+                        instance.SendMessage('Entry', 'HtmlDebug', 'is In Coinbase:'+isInCoinbase);
 
-                        const isCoinbaseReferrer = document.referrer.includes("coinbase.com");
-                        instance.SendMessage('Entry', 'HtmlDebug', 'isCoinbaseReferrer:'+isCoinbaseReferrer);
+                        var isInCoinbaseWallet = /CoinbaseWallet/i.test(userAgent) ? "true" : "false";
+                        instance.SendMessage('Entry', 'HtmlDebug', 'is In isInCoinbaseWallet:'+isInCoinbaseWallet);
+
+                        var isInWallet = /Wallet/i.test(userAgent) ? "true" : "false";
+                        instance.SendMessage('Entry', 'HtmlDebug', 'is In Wallet:'+isInWallet);
 
                         // 網頁視窗焦點
                         window.addEventListener("blur", function() {
