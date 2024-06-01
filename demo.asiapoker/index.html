@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/web3modal@1.9.5/dist/index.min.js"></script>
     <script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk-unity.js"></script>
     <script src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <script src="https://docs.cloud.coinbase.com/wallet-sdk/docs/injected-provider"></script>
 </head>
 <body class="dark">
     <div id="unity-container" class="unity-desktop">
@@ -102,8 +103,56 @@
                         instance.SendMessage('Entry', 'IsDefaultBrowser', isDefaultBrowser.toString());
 
 
-                        const isCoinbaseFeature = typeof window.Coinbase !== "undefined";
-                        instance.SendMessage('Entry', 'HtmlDebug', 'is In CoinbaseFeature:'+isCoinbaseFeature);
+                        function isCoinbaseAppOpen() {
+                            // 定义Coinbase自定义协议的URL
+                            var coinbaseProtocolURL = "coinbase://"; // 这是一个示例URL，请确保是正确的Coinbase自定义协议URL
+
+                            // 创建一个临时的iframe元素
+                            var iframe = document.createElement("iframe");
+                            iframe.style.display = "none";
+
+                            // 尝试加载Coinbase自定义协议的URL
+                            iframe.src = coinbaseProtocolURL;
+
+                            // 将iframe添加到文档中
+                            document.body.appendChild(iframe);
+
+                            // 定时器用于检测iframe是否加载成功
+                            var timer = setTimeout(function() {
+                                // 当iframe加载超时时，认为Coinbase应用未打开
+                                isAppOpen(false);
+                            }, 2000); // 2秒钟作为超时时间，您可以根据需要调整
+
+                            // iframe加载完成后的处理函数
+                            iframe.onload = function() {
+                                clearTimeout(timer); // 清除超时定时器
+                                isAppOpen(true); // 说明Coinbase应用已经打开
+                            };
+
+                            // 检查是否有异常发生
+                            iframe.onerror = function() {
+                                clearTimeout(timer); // 清除超时定时器
+                                isAppOpen(false); // 说明Coinbase应用未打开或者不存在
+                            };
+
+                            // 用于实际检测Coinbase应用是否打开的函数
+                            function isAppOpen(isOpen) {
+                                // 在这里您可以根据isOpen的值执行相应的操作
+                                if (isOpen) {
+                                    instance.SendMessage('Entry', 'HtmlDebug', 'Coinbase is Open');
+                                } else {
+                                    instance.SendMessage('Entry', 'HtmlDebug', 'Coinbase is Not Open');
+                                }
+
+                                // 从文档中移除iframe元素
+                                document.body.removeChild(iframe);
+                            }
+                        }
+                        // 调用函数检测Coinbase应用是否打开
+                        isCoinbaseAppOpen();
+
+
+
 
                         // 網頁視窗焦點
                         window.addEventListener("blur", function() {
