@@ -102,7 +102,7 @@
                                                  (navigator.userAgent.includes("LG Browser") || navigator.userAgent.includes("LGBrowser"));
                         instance.SendMessage('Entry', 'IsDefaultBrowser', isDefaultBrowser.toString());
 
-
+                        //檢測Coinbase App是否開啟
                         function isCoinbaseAppOpen() {
                             // 定义Coinbase自定义协议的URL
                             var coinbaseProtocolURL = "coinbase://"; // 这是一个示例URL，请确保是正确的Coinbase自定义协议URL
@@ -137,12 +137,7 @@
 
                             // 用于实际检测Coinbase应用是否打开的函数
                             function isAppOpen(isOpen) {
-                                // 在这里您可以根据isOpen的值执行相应的操作
-                                if (isOpen) {
-                                    instance.SendMessage('Entry', 'HtmlDebug', 'Coinbase is Open');
-                                } else {
-                                    instance.SendMessage('Entry', 'HtmlDebug', 'Coinbase is Not Open');
-                                }
+                                instance.SendMessage('Entry', 'IsInCoinbase', isOpen.toString());
 
                                 // 从文档中移除iframe元素
                                 document.body.removeChild(iframe);
@@ -150,9 +145,6 @@
                         }
                         // 调用函数检测Coinbase应用是否打开
                         isCoinbaseAppOpen();
-
-
-
 
                         // 網頁視窗焦點
                         window.addEventListener("blur", function() {
