@@ -102,15 +102,8 @@
                         instance.SendMessage('Entry', 'IsDefaultBrowser', isDefaultBrowser.toString());
 
 
-                        var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-                        var isInCoinbase = /Coinbase/i.test(userAgent) ? "true" : "false";
-                        instance.SendMessage('Entry', 'HtmlDebug', 'is In Coinbase:'+isInCoinbase);
-
-                        var isInCoinbaseWallet = /CoinbaseWallet/i.test(userAgent) ? "true" : "false";
-                        instance.SendMessage('Entry', 'HtmlDebug', 'is In isInCoinbaseWallet:'+isInCoinbaseWallet);
-
-                        var isInWallet = /Wallet/i.test(userAgent) ? "true" : "false";
-                        instance.SendMessage('Entry', 'HtmlDebug', 'is In Wallet:'+isInWallet);
+                        const isCoinbaseFeature = typeof window.Coinbase !== "undefined";
+                        instance.SendMessage('Entry', 'HtmlDebug', 'is In CoinbaseFeature:'+isCoinbaseFeature);
 
                         // 網頁視窗焦點
                         window.addEventListener("blur", function() {
