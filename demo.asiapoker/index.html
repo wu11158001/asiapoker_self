@@ -102,7 +102,7 @@
                         instance.SendMessage('Entry', 'IsDefaultBrowser', isDefaultBrowser.toString());
 
 
-                        const isInCoinbase = navigator.userAgent.Contains('Coinbase');
+                        const isInCoinbase = navigator.userAgent.includes('Coinbase');
                         instance.SendMessage('Entry', 'HtmlDebug', 'isInCoinbase:'+isInCoinbase);
 
                         const isCoinbaseReferrer = document.referrer.includes("coinbase.com");
