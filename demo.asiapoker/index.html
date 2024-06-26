@@ -49,13 +49,12 @@
                 productVersion: "0.1",
             };
 
-            const container = document.querySelector("#unity-container");
-            const canvas = document.querySelector("#unity-canvas");
-            const loadingCover = document.querySelector("#loading-cover");
-            const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
-            const progressBarFull = document.querySelector("#unity-progress-bar-full");
-            const fullscreenButton = document.querySelector("#unity-fullscreen-button");
-            const spinner = document.querySelector('.spinner');
+            var container = document.querySelector("#unity-container");
+            var canvas = document.querySelector("#unity-canvas");
+            var loadingBar = document.querySelector("#unity-loading-bar");
+            var progressBarFull = document.querySelector("#unity-progress-bar-full");
+            var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+            var spinner = document.querySelector('.spinner');
 
             const canFullscreen = (function() {
                 return false;
@@ -64,19 +63,23 @@
             if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
                 container.className = "unity-mobile";
                 config.devicePixelRatio = 3;
+            } else {
+                canvas.style.width = "100%";
+                canvas.style.height = "100%";
             }
-            loadingCover.style.display = "";
+
+            loadingBar.style.display = "block";
             const script = document.createElement("script");
             script.src = loaderUrl;
             script.onload = () => {
                 import('./lib/thirdweb-unity-bridge.js').then(module => {
                     createUnityInstance(canvas, config, (progress) => {
                         spinner.style.display = "none";
-                        progressBarEmpty.style.display = "";
-                        progressBarFull.style.width = `${110 * progress}%`;
+                        progressBarFull.style.width = 100 * progress + "%";
 
                     }).then((instance) => {
-                        loadingCover.style.display = "none";
+                        loadingBar.style.display = "none";
+
                         if (canFullscreen) {
                             if (!hideFullScreenButton) {
                                 fullscreenButton.style.display = "";
