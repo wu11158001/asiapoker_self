@@ -36,12 +36,11 @@ body {
     align-items: center; /* Center items horizontally */
 }
 #unity-loading-bar {
-    width: 100%; /* Ensure the loading bar takes the full width */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end; /* Adjust to align items at the bottom */
-    align-items: center;
-    padding-bottom: 20px; /* Space from the bottom of the screen */
+    position: absolute; 
+    left: 50%; 
+    top: 50%; 
+    transform: translate(-50%, -50%); 
+    display: none
 }
 #unity-logo {
     text-align: center;
@@ -51,19 +50,17 @@ body {
     max-width: 8%;
 }
 #unity-progress-bar-empty {
-    width: 100%; /* Adjust as needed */
-    height: 24px;
-    margin: 0; /* Remove extra margin */
-    text-align: left;
-    border: 1px solid black;
-    padding: 2px;
-    position: fixed;
-    bottom: 10px; /* Adjust as needed */
+    width: 141px; 
+    height: 18px; 
+    margin-top: 10px; 
+    margin-left: 6.5px; 
+    background: url('progress-bar-empty-dark.png') no-repeat center 
 }
 #unity-progress-bar-full {
-    width: 0%;
-    height: 100%;
-    background: white;
+    width: 0%; 
+    height: 18px; 
+    margin-top: 10px;
+    background: url('progress-bar-full-dark.png') no-repeat center 
 }
 .light #unity-progress-bar-empty {
     border-color: black;
@@ -84,7 +81,7 @@ body {
 
 .spinner,
 .spinner:after {
-  border-radius: 50%;
+  border-radius: 0%;
   width: 5em;
   height: 5em;
 }
