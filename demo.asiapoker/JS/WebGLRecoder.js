@@ -72,12 +72,9 @@ function ResumeRecording() {
 
 //播放錄製影片
 function PlayRecording() {
-    var selectedRecording = recordingSelect.value;
-    if (selectedRecording !== "") {
-        var blob = recordings[selectedRecording];
-        var url = window.URL.createObjectURL(blob);
-        recordedVideo.src = url;
-        recordedVideo.style.display = 'block';
-        recordedVideo.play();
-    }
+    var blob = recordings[0];
+    var url = window.URL.createObjectURL(blob);
+    recordedVideo.src = url;
+    recordedVideo.style.display = 'block';
+    recordedVideo.play();
 }
