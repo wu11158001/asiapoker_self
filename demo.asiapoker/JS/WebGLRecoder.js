@@ -7,12 +7,12 @@ var recordings = [];
 var recordingCount = 0;
 
 //影片開始錄製
-function startRecording() {
+function StartRecording() {
     var canvas = gameContainer.querySelector('canvas');
     if (canvas) {
         var stream = canvas.captureStream(30);
         mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
-        mediaRecorder.ondataavailable = handleDataAvailable;
+        mediaRecorder.ondataavailable = HandleDataAvailable;
         mediaRecorder.start();
         console.log('Recording started');
     } else {
@@ -21,21 +21,21 @@ function startRecording() {
 }
 
 //影片停止錄製
-function stopRecording() {
+function StopRecording() {
     if (mediaRecorder && mediaRecorder.state !== 'inactive') {
         mediaRecorder.stop();
         console.log('Recording stopped');
     }
 }
 
-function handleDataAvailable(event) {
+function HandleDataAvailable(event) {
     if (event.data.size > 0) {
         recordedBlobs.push(event.data);
     }
 }
 
 //影片錄製存檔
-function saveRecording() {
+function SaveRecording() {
     var blob = new Blob(recordedBlobs, { type: 'video/webm' });
     recordings.push(blob);
     var url = window.URL.createObjectURL(blob);
@@ -55,7 +55,7 @@ function saveRecording() {
 }
 
 //影片暫停錄製
-function pauseRecording() {
+function PauseRecording() {
     if (mediaRecorder && mediaRecorder.state === 'recording') {
         mediaRecorder.pause();
         console.log('Recording paused');
@@ -63,7 +63,7 @@ function pauseRecording() {
 }
 
 //影片繼續錄製
-function resumeRecording() {
+function ResumeRecording() {
     if (mediaRecorder && mediaRecorder.state === 'paused') {
         mediaRecorder.resume();
         console.log('Recording resumed');
@@ -71,7 +71,7 @@ function resumeRecording() {
 }
 
 //播放錄製影片
-function playRecording() {
+function PlayRecording() {
     var selectedRecording = recordingSelect.value;
     if (selectedRecording !== "") {
         var blob = recordings[selectedRecording];
