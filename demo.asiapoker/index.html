@@ -12,6 +12,8 @@
     <script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk-unity.js"></script>
     <script src="https://connect.facebook.net/en_US/sdk.js"></script>
     <script src="https://docs.cloud.coinbase.com/wallet-sdk/docs/injected-provider"></script>
+
+    <script src="https://www.google.com/recaptcha/api.js?render=YOUR_RECAPTCHA_SITE_KEY"></script>
 </head>
 <body class="dark">
     <div id="unity-container" class="unity-desktop">
@@ -83,6 +85,15 @@
                             };
                         }
                         window.unityInstance = instance;
+
+                        //獲取reCAPTCHA Token
+                        function getRecaptchaToken(action) {
+                            grecaptcha.ready(function() {
+                                grecaptcha.execute('YOUR_RECAPTCHA_SITE_KEY', {action: action}).then(function(token) {
+                                    instance.SendMessage('Entry', 'ReceiveRecaptchaToken', token);
+                                });
+                            });
+                        }
 
                         // 檢測平台
                         IsMobilePlatform = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
