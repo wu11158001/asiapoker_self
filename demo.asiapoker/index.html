@@ -12,7 +12,11 @@
     <script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk-unity.js"></script>
     <script src="https://connect.facebook.net/en_US/sdk.js"></script>
     <script src="https://docs.cloud.coinbase.com/wallet-sdk/docs/injected-provider"></script>
-    <script src="https://www.google.com/recaptcha/api.js?render=6LdZ8BcqAAAAAF81_Z_JpfbmuvlW5B0lS2hnyzkr"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore-compat.js"></script>
+
 </head>
 <body class="dark">
     <div id="unity-container" class="unity-desktop">
@@ -27,7 +31,23 @@
         </div>
     </div>
     <div id="unity-fullscreen-button" style="display: none"></div>
+    <div id="recaptcha-container"></div>
     <script>
+        // Firebase 配置
+        const firebaseConfig = {
+            apiKey: "AIzaSyDbgc-2YxTTzwZdmKCG57Fz6dFK9LCPAxY",
+            authDomain: "asia-poker-5959b.firebaseapp.com",
+            databaseURL: "https://asia-poker-5959b-default-rtdb.firebaseio.com",
+            projectId: "asia-poker-5959b",
+            storageBucket: "asia-poker-5959b.appspot.com",
+            messagingSenderId: "320309465715",
+            appId: "1:320309465715:web:20b2b12ee48ffb7929d006"
+        };
+
+        // 初始化 Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
 
         //重定向Url
         window.callbackUrl = 'https://kooco.github.io/ACEdemo/demo.asiapoker/index.html';
