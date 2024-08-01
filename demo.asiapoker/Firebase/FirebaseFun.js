@@ -23,27 +23,25 @@ function initializeFirebase() {
 
 //觸發Recaptcha驗證
 function triggerRecaptcha(phoneNumber) {
-    console.log("觸發Recaptcha驗證2");
-    setupRecaptchaVerifier(phoneNumber);
+    window.currPhoneNumber = phoneNumber;
+    document.getElementById('recaptcha-button').click();
 }
 
 //設置Recaptcha驗證監聽
-function setupRecaptchaVerifier(phoneNumber) {
+function setupRecaptchaVerifier() {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-button', {
         'size': 'invisible',
         'callback': (response) => {
-            // reCAPTCHA solved, allow signInWithPhoneNumber.
-            // This callback function can be handled in Unity or here
             console.log('reCAPTCHA solved');
-            signInWithPhoneNumber(phoneNumber);
+            signInWithPhoneNumber();
         }
     });
 }
 
 //發送OTP
-function signInWithPhoneNumber(phoneNumber) {
+function signInWithPhoneNumber() {
     var appVerifier = window.recaptchaVerifier;
-    firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+    firebase.auth().signInWithPhoneNumber(window.currPhoneNumber, appVerifier)
         .then((confirmationResult) => {
             window.confirmationResult = confirmationResult;
             console.log('SMS sent!!!');
