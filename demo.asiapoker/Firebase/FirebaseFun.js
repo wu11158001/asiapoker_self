@@ -103,5 +103,6 @@ function verifyCode(code, type) {
 // 初始化 Firebase 和 Recaptcha 當文檔加載完成時
 document.addEventListener('DOMContentLoaded', (event) => {
     initializeFirebase();
-    console.log('Firebase initialized and setup completed!!');
+    setupRecaptchaVerifier();
+    console.log('Firebase and Recaptcha initialized and setup completed!!');
 });
