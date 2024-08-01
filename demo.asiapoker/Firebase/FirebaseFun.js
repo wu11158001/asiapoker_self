@@ -1,4 +1,4 @@
-//Firebase初始化
+// Firebase初始化
 function initializeFirebase() {
     // Firebase 配置
     const firebaseConfig = {
@@ -16,18 +16,10 @@ function initializeFirebase() {
     const db = firebase.firestore();
     const auth = firebase.auth();
     auth.useDeviceLanguage();
-    //auth.settings.appVerificationDisabledForTesting = true;     //跳過recaptcha 驗證
-
-    console.log("Firebase Init!");
+    // auth.settings.appVerificationDisabledForTesting = true; // 跳過recaptcha 驗
 }
 
-//觸發Recaptcha驗證
-function triggerRecaptcha(phoneNumber) {
-    window.currPhoneNumber = phoneNumber;
-    document.getElementById('recaptcha-button').click();
-}
-
-//設置Recaptcha驗證監聽
+// 設置Recaptcha驗證監聽
 function setupRecaptchaVerifier() {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-button', {
         'size': 'invisible',
@@ -36,9 +28,16 @@ function setupRecaptchaVerifier() {
             signInWithPhoneNumber();
         }
     });
+
+    window.recaptchaVerifier.render().then(function(widgetId) {
+        window.recaptchaWidgetId = widgetId;
+        console.log("reCAPTCHA verifier setup completed with widgetId:", widgetId);
+    }).catch(function(error) {
+        console.error('Error setting up reCAPTCHA verifier:', error);
+    });
 }
 
-//發送OTP
+// 發送OTP
 function signInWithPhoneNumber() {
     var appVerifier = window.recaptchaVerifier;
     firebase.auth().signInWithPhoneNumber(window.currPhoneNumber, appVerifier)
@@ -51,8 +50,16 @@ function signInWithPhoneNumber() {
         });
 }
 
-// Initialize Firebase and Recaptcha when the document is ready
+// 觸發Recaptcha驗證
+function triggerRecaptcha(phoneNumber) {
+    window.currPhoneNumber = phoneNumber;
+    console.log('Phone number set for reCAPTCHA:', phoneNumber);
+    document.getElementById('recaptcha-button').click();
+}
+
+// 初始化 Firebase 和 Recaptcha 當文檔加載完成時
 document.addEventListener('DOMContentLoaded', (event) => {
     initializeFirebase();
     setupRecaptchaVerifier();
+    console.log('Firebase and reCAPTCHA initialized and setup completed!!');
 });
