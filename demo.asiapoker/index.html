@@ -20,8 +20,12 @@
     <script src="Firebase/FirebaseFun.js"></script>
 
     <style>
+        /*recaptcha小工具*/
+        #recaptcha-container {
+            display: none;
+        }
         /*recaptcha驗證按鈕*/
-        #recaptcha-button {
+        #recaptcha-button {            
             position: absolute;
             z-index: 1000;
             opacity: 0; /* 设置透明度为0 */
@@ -30,6 +34,7 @@
     </style>
 </head>
 <body class="dark">
+    <div id="recaptcha-container"></div><!--recaptcha小工具-->
     <div id="unity-container" class="unity-desktop">
         <button id="recaptcha-button">recaptcha button</button><!--recaptcha驗證按鈕-->
         <canvas id="unity-canvas" style="width: 100%; height: 100%;"></canvas>
