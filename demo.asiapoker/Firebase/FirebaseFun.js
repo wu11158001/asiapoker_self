@@ -28,7 +28,6 @@ function setupRecaptchaVerifier() {
         }
     });
 
-    var recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
     recaptchaVerifier.render().then((widgetId) => {
         window.recaptchaWidgetId = widgetId;
     });
