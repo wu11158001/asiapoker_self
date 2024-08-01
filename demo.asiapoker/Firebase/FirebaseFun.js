@@ -27,6 +27,10 @@ function setupRecaptchaVerifier() {
             signInWithPhoneNumber();
         }
     });
+
+    recaptchaVerifier.render().then((widgetId) => {
+        window.recaptchaWidgetId = widgetId;
+    });
 }
 
 // 發送OTP
