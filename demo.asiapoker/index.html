@@ -49,6 +49,7 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const auth = firebase.auth();
+        auth.languageCode = 'it';
         auth.settings.appVerificationDisabledForTesting = true;     //跳過recaptcha 驗證
 
         //重定向Url
