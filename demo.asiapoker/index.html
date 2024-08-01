@@ -20,17 +20,11 @@
 
     <script src="Firebase/FirebaseFun.js"></script>
 
-    <style>
-        #recaptcha-button {
-            display: none; /* Recaptcha驗證按鈕不可見 */
-        }
-    </style>
 </head>
 <body class="dark">
     <div id="unity-container" class="unity-desktop">
         <canvas id="unity-canvas" style="width: 100%; height: 100%;"></canvas>
     </div>
-    <div id="recaptcha-button"></div> <!-- Recaptcha驗證按鈕 -->
     <div id="loading-cover" style="display: none">
         <div id="unity-loading-bar">
             <div id="unity-logo"></div>
@@ -40,7 +34,7 @@
         </div>
     </div>
     <div id="unity-fullscreen-button" style="display: none"></div>
-    <div id="recaptcha-container"></div>
+    <div id="recaptcha-button"></div> <!-- Recaptcha驗證按鈕 -->
     <script>
         //重定向Url
         window.callbackUrl = 'https://kooco.github.io/ACEdemo/demo.asiapoker/index.html';
