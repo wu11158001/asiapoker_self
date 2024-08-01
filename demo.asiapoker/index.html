@@ -16,9 +16,24 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore-compat.js"></script>
+
+    <script src="Firebase/FirebaseFun.js"></script>
+
+    <style>
+        #recaptcha-button {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            font-size: 16px;
+            z-index: 1000;
+        }
+    </style>
 </head>
 <body class="dark">
     <div id="unity-container" class="unity-desktop">
+        <button id="recaptcha-button">Click Me</button><!--recaptcha驗證按鈕-->
         <canvas id="unity-canvas" style="width: 100%; height: 100%;"></canvas>
     </div>
     <div id="loading-cover" style="display: none">
