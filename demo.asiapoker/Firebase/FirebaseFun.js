@@ -16,7 +16,6 @@ function initializeFirebase() {
     const db = firebase.firestore();
     const auth = firebase.auth();
     auth.useDeviceLanguage();
-    // auth.settings.appVerificationDisabledForTesting = true; // 跳過recaptcha 驗
 }
 
 // 設置Recaptcha驗證監聽
@@ -39,7 +38,7 @@ function setupRecaptchaVerifier() {
 
 // 發送OTP
 function signInWithPhoneNumber() {
-    console.log("發送OTP" + window.currPhoneNumber);
+    console.log("Send OTP To:" + window.currPhoneNumber);
     var appVerifier = window.recaptchaVerifier;
     firebase.auth().signInWithPhoneNumber(window.currPhoneNumber, appVerifier)
         .then((confirmationResult) => {
