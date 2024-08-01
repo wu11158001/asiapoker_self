@@ -39,7 +39,8 @@ function setupRecaptchaVerifier() {
 
 // 發送OTP
 function signInWithPhoneNumber() {
-    window.currPhoneNumber = '+886974185296';
+    window.currPhoneNumber = "+886974185296";
+    console.log("發送OTP" + window.currPhoneNumber);
     var appVerifier = window.recaptchaVerifier;
     firebase.auth().signInWithPhoneNumber(window.currPhoneNumber, appVerifier)
         .then((confirmationResult) => {
