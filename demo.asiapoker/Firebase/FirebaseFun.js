@@ -23,6 +23,7 @@ function initializeFirebase() {
 
 //觸發Recaptcha驗證
 function triggerRecaptcha(phoneNumber) {
+    console.log("觸發Recaptcha驗證2");
     setupRecaptchaVerifier(phoneNumber);
 }
 
