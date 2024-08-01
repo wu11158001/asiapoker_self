@@ -27,13 +27,6 @@ function setupRecaptchaVerifier() {
             signInWithPhoneNumber();
         }
     });
-
-    window.recaptchaVerifier.render().then(function(widgetId) {
-        window.recaptchaWidgetId = widgetId;
-        console.log("reCAPTCHA verifier setup completed with widgetId:", widgetId);
-    }).catch(function(error) {
-        console.error('Error setting up reCAPTCHA verifier:', error);
-    });
 }
 
 // 發送OTP
@@ -55,6 +48,52 @@ function triggerRecaptcha(phoneNumber) {
     window.currPhoneNumber = phoneNumber;
     console.log('Phone number set for reCAPTCHA:', phoneNumber);
     document.getElementById('recaptcha-button').click();
+}
+
+// 驗證OTP 
+function verifyCode(code, type) {
+    confirmationResult.confirm(code).then((result) => {
+        console.log("User signed in successfully!!!");
+        const user = result.user;
+
+        switch(type)
+        {
+            //錢包登入
+            case "Wallet":
+                window.unityInstance.SendMessage("LoginView", "OnWalletLoginSuccess");
+                break;
+
+            //手機註冊
+            case "Register":
+                window.unityInstance.SendMessage("LoginView", "OnRegisterSuccess");
+                break;
+            
+            //忘記密碼
+            case "LostPsw":
+                window.unityInstance.SendMessage("LoginView", "OnLostPswSuccess");
+                break;
+        }
+      }).catch((error) => {
+        console.log("Verify Code Error : " + error);
+
+        switch(type)
+        {
+            //錢包登入
+            case "Wallet":
+                window.unityInstance.SendMessage("LoginView", "OnWalletLoginOTPCodeError");
+                break;
+
+            //手機註冊
+            case "Register":
+                window.unityInstance.SendMessage("LoginView", "OnRegisterOTPCodeError");
+                break;
+            
+            //忘記密碼
+            case "LostPsw":
+                window.unityInstance.SendMessage("LoginView", "OnLostPswOTPCodeError");
+                break;
+        }
+      });
 }
 
 // 初始化 Firebase 和 Recaptcha 當文檔加載完成時
