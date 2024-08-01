@@ -84,6 +84,16 @@ body {
     background-size: contain;
 }
 
+#recaptcha-button {
+    display: block; /* 顯示驗證按鈕 */
+    width: 100px; /* 設置寬度 */
+    height: 50px; /* 設置高度 */
+    background-color: #f1f1f1; /* 背景顏色 */
+    border: 1px solid #ccc; /* 邊框顏色 */
+    text-align: center; /* 文字居中 */
+    line-height: 50px; /* 行高與高度一致，使文字垂直居中 */
+}
+
 .spinner,
 .spinner:after {
   border-radius: 50%;

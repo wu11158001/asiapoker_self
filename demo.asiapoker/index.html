@@ -13,24 +13,13 @@
     <script src="https://connect.facebook.net/en_US/sdk.js"></script>
     <script src="https://docs.cloud.coinbase.com/wallet-sdk/docs/injected-provider"></script>
 
-    <script src="https://www.google.com/recaptcha/api.js?render=6LdZ8BcqAAAAAF81_Z_JpfbmuvlW5B0lS2hnyzkr"></script>
+    //<script src="https://www.google.com/recaptcha/api.js?render=6LdZ8BcqAAAAAF81_Z_JpfbmuvlW5B0lS2hnyzkr"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore-compat.js"></script>
 
     <script src="Firebase/FirebaseFun.js"></script>
 
-    <style>
-        #recaptcha-button {
-            display: block; /* 顯示驗證按鈕 */
-            width: 100px; /* 設置寬度 */
-            height: 50px; /* 設置高度 */
-            background-color: #f1f1f1; /* 背景顏色 */
-            border: 1px solid #ccc; /* 邊框顏色 */
-            text-align: center; /* 文字居中 */
-            line-height: 50px; /* 行高與高度一致，使文字垂直居中 */
-        }
-    </style>
 </head>
 <body class="dark">
     <div id="unity-container" class="unity-desktop">
@@ -73,6 +62,7 @@
             const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
             const progressBarFull = document.querySelector("#unity-progress-bar-full");
             const fullscreenButton = document.querySelector("#unity-fullscreen-button");
+            const recaptchaButton = document.querySelector("#recaptcha-button");
 
             const canFullscreen = (function() {
                 return false;
