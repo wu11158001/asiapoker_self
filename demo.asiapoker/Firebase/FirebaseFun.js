@@ -1,25 +1,21 @@
-import "firebase/database";
-
-// Firebase 配置
-const firebaseConfig = {
-    apiKey: "AIzaSyDbgc-2YxTTzwZdmKCG57Fz6dFK9LCPAxY",
-    authDomain: "asia-poker-5959b.firebaseapp.com",
-    databaseURL: "https://asia-poker-5959b-default-rtdb.firebaseio.com",
-    projectId: "asia-poker-5959b",
-    storageBucket: "asia-poker-5959b.appspot.com",
-    messagingSenderId: "320309465715",
-    appId: "1:320309465715:web:20b2b12ee48ffb7929d006"
-};
-
-// 初始化 Firebase
-const app = firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-const auth = firebase.auth();
-auth.useDeviceLanguage();
-
 // Firebase初始化
 function initializeFirebase() {
+    // Firebase 配置
+    const firebaseConfig = {
+        apiKey: "AIzaSyDbgc-2YxTTzwZdmKCG57Fz6dFK9LCPAxY",
+        authDomain: "asia-poker-5959b.firebaseapp.com",
+        databaseURL: "https://asia-poker-5959b-default-rtdb.firebaseio.com",
+        projectId: "asia-poker-5959b",
+        storageBucket: "asia-poker-5959b.appspot.com",
+        messagingSenderId: "320309465715",
+        appId: "1:320309465715:web:20b2b12ee48ffb7929d006"
+    };
 
+    // 初始化 Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const auth = firebase.auth();
+    auth.useDeviceLanguage();
 }
 
 // 設置Recaptcha驗證監聽
