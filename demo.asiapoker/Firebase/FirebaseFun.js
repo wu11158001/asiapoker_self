@@ -19,7 +19,7 @@ function initializeFirebase() {
 }
 
 // 設置Recaptcha驗證監聽
-function setupRecaptchaVerifier() {
+/*function setupRecaptchaVerifier() {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-button', {
         'size': 'invisible',
         'callback': (response) => {
@@ -31,8 +31,8 @@ function setupRecaptchaVerifier() {
     recaptchaVerifier.render().then((widgetId) => {
         window.recaptchaWidgetId = widgetId;
     });
-}
-
+}*/
+/*
 // 發送OTP
 function signInWithPhoneNumber() {
     console.log("Send OTP To:" + window.currPhoneNumber);
@@ -122,7 +122,7 @@ function updateDate(jsonData) {
         }
     });
 }
-
+*/
 /*function writeLoginData(phoneNumber, password) {    
     firebase.database().ref('phone/' + phoneNumber).set({
         phoneNumber: phoneNumber,
