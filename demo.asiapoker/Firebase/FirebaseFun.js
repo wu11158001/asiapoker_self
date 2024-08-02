@@ -100,10 +100,30 @@ function verifyCode(code, type) {
       });
 }
 
-// 寫入登入資料
-function writeLoginData(phoneNumber, password) {
-    console.log("Write Login Data :" + phoneNumber + "/" + password);
-    
+// 寫入資料
+function writeDate(jsonData) {
+
+    firebase.database().ref(refPath).set(jsonData, (error) => {
+        if (error) {
+            console.error("The write failed... : " + error);
+        } else {
+            console.log("Data saved successfully!");
+        }
+    });
+}
+
+// 修改與擴充資料
+function updateDate(jsonData) {
+    firebase.database().ref(refPath).update(jsonData, (error) => {
+        if (error) {
+            console.error("The update failed... : " + error);
+        } else {
+            console.log("Data updated successfully!");
+        }
+    });
+}
+
+/*function writeLoginData(phoneNumber, password) {    
     firebase.database().ref('phone/' + phoneNumber).set({
         phoneNumber: phoneNumber,
         password: password
@@ -114,7 +134,7 @@ function writeLoginData(phoneNumber, password) {
             console.log("Data saved successfully!");
         }
     });
-}
+}*/
 
 //當文檔加載完成時
 document.addEventListener('DOMContentLoaded', (event) => {
