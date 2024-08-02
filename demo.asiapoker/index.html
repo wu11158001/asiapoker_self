@@ -105,23 +105,6 @@
                         }
                         window.unityInstance = instance;
 
-                        //讀取Firebase Config
-                        fetch('Firebase/FirebaseEvn.env')
-                            .then(response => response.text())
-                            .then(text => {
-                                // 解析 .env 文件内容
-                                window.firebaseEnv = text.split('\n').reduce((acc, line) => {
-                                    const [key, value] = line.split('=');
-                                    if (key && value) {
-                                        acc[key.trim()] = value.trim();
-                                    }
-                                    return acc;
-                                }, {});
-
-                                initializeFirebase();
-                        })
-                        .catch(error => console.error('Error loading .env file:', error));
-
                         // 檢測平台
                         IsMobilePlatform = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
                         instance.SendMessage('Entry', 'IsMobilePlatform', IsMobilePlatform.toString());
