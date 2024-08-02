@@ -1,3 +1,5 @@
+import "firebase/database";
+
 // Firebase 配置
 const firebaseConfig = {
     apiKey: "AIzaSyDbgc-2YxTTzwZdmKCG57Fz6dFK9LCPAxY",
@@ -11,7 +13,6 @@ const firebaseConfig = {
 
 // 初始化 Firebase
 const app = firebase.initializeApp(firebaseConfig);
-const database = getDatabase(app);
 const db = firebase.firestore();
 const auth = firebase.auth();
 auth.useDeviceLanguage();
@@ -107,7 +108,7 @@ function verifyCode(code, type) {
 function writeLoginData(phoneNumber, password) {
     console.log("Write Login Data :" + phoneNumber + "/" + password);
     
-    database.ref('phone/' + phoneNumber).set({
+    firebase.database().ref('phone/' + phoneNumber).set({
         phoneNumber: phoneNumber,
         password: password
     }, (error) => {
