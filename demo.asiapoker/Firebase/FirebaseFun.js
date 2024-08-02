@@ -28,14 +28,28 @@ function setupRecaptchaVerifier() {
         }
     });
 
-    recaptchaVerifier.render().then((widgetId) => {
+    window.recaptchaVerifier.render().then((widgetId) => {
         window.recaptchaWidgetId = widgetId;
     });
 }
 
+// 發送OTP
+function signInWithPhoneNumber() {
+    console.log("Send OTP To:" + window.currPhoneNumber);
+    var appVerifier = window.recaptchaVerifier;
+    firebase.auth().signInWithPhoneNumber(window.currPhoneNumber, appVerifier)
+        .then((confirmationResult) => {
+            window.confirmationResult = confirmationResult;
+            console.log('SMS sent!!!');
+        })
+        .catch((error) => {
+            console.error('Error during signInWithPhoneNumber:', error);
+        });
+}
+
 // 驗證OTP 
 function verifyCode(code, type) {
-    confirmationResult.confirm(code).then((result) => {
+    window.confirmationResult.confirm(code).then((result) => {
         console.log("User signed in successfully!!!");
         const user = result.user;
 
@@ -80,20 +94,6 @@ function verifyCode(code, type) {
 }
 
 /*
-// 發送OTP
-function signInWithPhoneNumber() {
-    console.log("Send OTP To:" + window.currPhoneNumber);
-    var appVerifier = window.recaptchaVerifier;
-    firebase.auth().signInWithPhoneNumber(window.currPhoneNumber, appVerifier)
-        .then((confirmationResult) => {
-            window.confirmationResult = confirmationResult;
-            console.log('SMS sent!!!');
-        })
-        .catch((error) => {
-            console.error('Error during signInWithPhoneNumber:', error);
-        });
-}
-
 // 觸發Recaptcha驗證
 function triggerRecaptcha(phoneNumber) {
     window.currPhoneNumber = phoneNumber;
