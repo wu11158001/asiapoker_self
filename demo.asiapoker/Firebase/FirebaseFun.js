@@ -1,3 +1,7 @@
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+const database = null;
+
 // Firebase初始化
 function initializeFirebase() {
     // Firebase 配置
@@ -12,7 +16,8 @@ function initializeFirebase() {
     };
 
     // 初始化 Firebase
-    firebase.initializeApp(firebaseConfig);
+    const app = firebase.initializeApp(firebaseConfig);
+    database = getDatabase(app);
     const db = firebase.firestore();
     const auth = firebase.auth();
     auth.useDeviceLanguage();
@@ -98,6 +103,22 @@ function verifyCode(code, type) {
                 break;
         }
       });
+}
+
+// 寫入登入資料
+function writeLoginData(phoneNumber, password) {
+    console.log("Write Login Data :" + phoneNumber + "/" + password);
+    
+    database.ref('phone/' + number).set({
+        phoneNumber: phoneNumber,
+        password: password
+    }, (error) => {
+        if (error) {
+            console.error("The write failed... : " + error);
+        } else {
+            console.log("Data saved successfully!");
+        }
+    });
 }
 
 //當文檔加載完成時
