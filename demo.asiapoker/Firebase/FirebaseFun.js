@@ -19,7 +19,7 @@ function initializeFirebase() {
 }
 
 // 設置Recaptcha驗證監聽
-/*function setupRecaptchaVerifier() {
+function setupRecaptchaVerifier() {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-button', {
         'size': 'invisible',
         'callback': (response) => {
@@ -31,27 +31,6 @@ function initializeFirebase() {
     recaptchaVerifier.render().then((widgetId) => {
         window.recaptchaWidgetId = widgetId;
     });
-}*/
-/*
-// 發送OTP
-function signInWithPhoneNumber() {
-    console.log("Send OTP To:" + window.currPhoneNumber);
-    var appVerifier = window.recaptchaVerifier;
-    firebase.auth().signInWithPhoneNumber(window.currPhoneNumber, appVerifier)
-        .then((confirmationResult) => {
-            window.confirmationResult = confirmationResult;
-            console.log('SMS sent!!!');
-        })
-        .catch((error) => {
-            console.error('Error during signInWithPhoneNumber:', error);
-        });
-}
-
-// 觸發Recaptcha驗證
-function triggerRecaptcha(phoneNumber) {
-    window.currPhoneNumber = phoneNumber;
-    console.log('Phone number set for reCAPTCHA:', phoneNumber);
-    document.getElementById('recaptcha-button').click();
 }
 
 // 驗證OTP 
@@ -98,6 +77,28 @@ function verifyCode(code, type) {
                 break;
         }
       });
+}
+
+/*
+// 發送OTP
+function signInWithPhoneNumber() {
+    console.log("Send OTP To:" + window.currPhoneNumber);
+    var appVerifier = window.recaptchaVerifier;
+    firebase.auth().signInWithPhoneNumber(window.currPhoneNumber, appVerifier)
+        .then((confirmationResult) => {
+            window.confirmationResult = confirmationResult;
+            console.log('SMS sent!!!');
+        })
+        .catch((error) => {
+            console.error('Error during signInWithPhoneNumber:', error);
+        });
+}
+
+// 觸發Recaptcha驗證
+function triggerRecaptcha(phoneNumber) {
+    window.currPhoneNumber = phoneNumber;
+    console.log('Phone number set for reCAPTCHA:', phoneNumber);
+    document.getElementById('recaptcha-button').click();
 }
 
 // 寫入資料
