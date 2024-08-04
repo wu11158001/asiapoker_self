@@ -179,8 +179,6 @@
                         const urlParams = new URLSearchParams(window.location.search);
                         const code = urlParams.get('code');
                         const state = urlParams.get('state');
-                        //邀請碼
-                        const invitationCode = urlParams.get('invitationCode');
                         if (code && state) {
                             //Line登入回傳
                             window.unityInstance.SendMessage('Entry', 'OnLineLoginCallback', code);
@@ -188,11 +186,7 @@
                         if(code) {
                             //IG登入回傳
                             window.unityInstance.SendMessage('Entry', 'OnIGLoginCallback', code);
-                        }
-                        if(invitationCode && inviterUserId) {
-                            //接收邀請碼
-                            window.unityInstance.SendMessage('Entry', 'ReceiveInvitationCode', invitationCode);
-                        }
+                        }                        
 
                         // 放置接收代碼的 JavaScript
                         function getQueryParams() {
@@ -211,9 +205,11 @@
                         const lineMail = queryParams['linemail'];
                         //IG Id與名子
                         const igIdAndName = queryParams['igIdAndName'];
+                        //邀請碼
+                        const invitationCode = queryParams['invitationCode'];
                         instance.SendMessage('Entry', 'HtmlDebug', 'lineMail:'+lineMail);
                         instance.SendMessage('Entry', 'HtmlDebug', 'igIdAndName:'+igIdAndName);
-                        instance.SendMessage('Entry', 'HtmlDebug', 'InvitationCode:'+InvitationCode+'InviterUserId:'+InviterUserId);
+                        instance.SendMessage('Entry', 'HtmlDebug', 'InvitationCode:'+InvitationCode);
                         if(lineMail) {
                             //Line
                             instance.SendMessage('Entry', 'ReceiveLineMail', lineMail);
@@ -222,7 +218,11 @@
                             //IG
                             instance.SendMessage('Entry', 'ReceiveIGInfo', igIdAndName);
                         }
-
+                        if(invitationCode) {
+                            //接收邀請碼
+                            window.unityInstance.SendMessage('Entry', 'ReceiveInvitationCode', invitationCode);
+                        }
+                        
                     }).catch((message) => {
                         alert(message);
                     });
