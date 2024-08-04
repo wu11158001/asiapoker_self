@@ -181,7 +181,7 @@
                         const state = urlParams.get('state');
                         if (code && state) {
                             //Line登入回傳
-                            window.unityInstance.SendMessage('Entry', 'OnLineLoginCallback', code);
+                            window.unityInstance.SendMessage('ThirdLoginManager', 'OnLineLoginCallback', code);
                         }
                         if(code) {
                             //IG登入回傳
