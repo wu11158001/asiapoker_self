@@ -209,7 +209,7 @@
                         const invitationCode = queryParams['invitationCode'];
                         instance.SendMessage('Entry', 'HtmlDebug', 'lineMail:'+lineMail);
                         instance.SendMessage('Entry', 'HtmlDebug', 'igIdAndName:'+igIdAndName);
-                        instance.SendMessage('Entry', 'HtmlDebug', 'InvitationCode:'+InvitationCode);
+                        instance.SendMessage('Entry', 'HtmlDebug', 'invitationCode:'+invitationCode);
                         if(lineMail) {
                             //Line
                             instance.SendMessage('Entry', 'ReceiveLineMail', lineMail);
@@ -222,7 +222,7 @@
                             //接收邀請碼
                             window.unityInstance.SendMessage('Entry', 'ReceiveInvitationCode', invitationCode);
                         }
-                        
+
                     }).catch((message) => {
                         alert(message);
                     });
