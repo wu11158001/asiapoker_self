@@ -183,7 +183,7 @@
                             //Line登入回傳
                             window.unityInstance.SendMessage('ThirdLoginManager', 'OnLineLoginCallback', code);
                         }
-                        if(code) {
+                        if(code && state == null) {
                             //IG登入回傳
                             window.unityInstance.SendMessage('Entry', 'OnIGLoginCallback', code);
                         }                        
