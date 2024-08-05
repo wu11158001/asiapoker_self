@@ -222,7 +222,7 @@
                         }
                         if(invitationCode && inviterId) {
                             //接收邀請碼
-                            window.unityInstance.SendMessage('Entry', 'ReceiveInvitationCode', invitationCode, inviterId);
+                            window.unityInstance.SendMessage('Entry', 'ReceiveInvitationCode', JSON.stringify({ invitationCode: invitationCode, inviterId: inviterId }));
                         }
 
                     }).catch((message) => {
