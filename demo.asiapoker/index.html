@@ -207,6 +207,8 @@
                         const igIdAndName = queryParams['igIdAndName'];
                         //邀請碼
                         const invitationCode = queryParams['invitationCode'];
+                        //邀請者ID
+                        const inviterId = queryParams['inviterId'];
                         instance.SendMessage('Entry', 'HtmlDebug', 'lineMail:'+lineMail);
                         instance.SendMessage('Entry', 'HtmlDebug', 'igIdAndName:'+igIdAndName);
                         instance.SendMessage('Entry', 'HtmlDebug', 'invitationCode:'+invitationCode);
@@ -218,9 +220,9 @@
                             //IG
                             instance.SendMessage('Entry', 'ReceiveIGInfo', igIdAndName);
                         }
-                        if(invitationCode) {
+                        if(invitationCode && inviterId) {
                             //接收邀請碼
-                            window.unityInstance.SendMessage('Entry', 'ReceiveInvitationCode', invitationCode);
+                            window.unityInstance.SendMessage('Entry', 'ReceiveInvitationCode', invitationCode, inviterId);
                         }
 
                     }).catch((message) => {
