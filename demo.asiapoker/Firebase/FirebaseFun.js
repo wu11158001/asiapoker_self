@@ -93,51 +93,67 @@ function verifyCode(code, type) {
       });
 }
 
+window.userStatusDatabaseRefs = window.userStatusDatabaseRefs || {};
+window.connectedRefs = window.connectedRefs || {};
+window.callbacks = window.callbacks || {};
+// 初始化在線狀態監測
+function initializePresence(pathPtr, idPtr) {
+    const path = UTF8ToString(pathPtr);
+    const id = UTF8ToString(idPtr);
+    console.log("Start Listener Connection State:" + id);
 
+    var userStatusDatabaseRef = firebase.database().ref(path);
+    var connectedRef = firebase.database().ref(".info/connected");
 
-/*
-// 觸發Recaptcha驗證
-function triggerRecaptcha(phoneNumber) {
-    window.currPhoneNumber = phoneNumber;
-    console.log('Phone number set for reCAPTCHA:', phoneNumber);
-    document.getElementById('recaptcha-button').click();
+    // 更新连接状态
+    function updateStatus(isOnline) {
+        userStatusDatabaseRef.update({
+            online: isOnline,
+            last_changed: firebase.database.ServerValue.TIMESTAMP
+        });
+    }
+
+    var connectedCallback = function(snapshot) {
+        if (snapshot.val() === false) {
+            // 客户端已离线，更新状态
+            updateStatus(false);
+            return;
+        }
+
+        // 客户端在线，更新状态
+        updateStatus(true);
+
+        // 处理断线
+        userStatusDatabaseRef.onDisconnect().update({
+            online: false,
+            last_changed: firebase.database.ServerValue.TIMESTAMP
+        });
+    };
+
+    connectedRef.on("value", connectedCallback);
+
+    // 存储引用和回调
+    window.userStatusDatabaseRefs[id] = userStatusDatabaseRef;
+    window.connectedRefs[id] = connectedRef;
+    window.callbacks[id] = connectedCallback;
 }
 
-// 寫入資料
-function writeDate(jsonData) {
+// 移除在線狀態監測
+function removePresenceListener(userId) {
+    const id = UTF8ToString(idPtr);
+    console.log("Remove Listener Connection State:" + id);
 
-    firebase.database().ref(refPath).set(jsonData, (error) => {
-        if (error) {
-            console.error("The write failed... : " + error);
-        } else {
-            console.log("Data saved successfully!");
-        }
-    });
-}
+    var connectedRef = window.connectedRefs[id];
+    var connectedCallback = window.callbacks[id];
 
-// 修改與擴充資料
-function updateDate(jsonData) {
-    firebase.database().ref(refPath).update(jsonData, (error) => {
-        if (error) {
-            console.error("The update failed... : " + error);
-        } else {
-            console.log("Data updated successfully!");
-        }
-    });
+    if (connectedRef && connectedCallback) {
+        connectedRef.off("value", connectedCallback);
+
+        delete window.userStatusDatabaseRefs[id];
+        delete window.connectedRefs[id];
+        delete window.callbacks[id];
+    }
 }
-*/
-/*function writeLoginData(phoneNumber, password) {    
-    firebase.database().ref('phone/' + phoneNumber).set({
-        phoneNumber: phoneNumber,
-        password: password
-    }, (error) => {
-        if (error) {
-            console.error("The write failed... : " + error);
-        } else {
-            console.log("Data saved successfully!");
-        }
-    });
-}*/
 
 //當文檔加載完成時
 document.addEventListener('DOMContentLoaded', (event) => {
