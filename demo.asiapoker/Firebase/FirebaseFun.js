@@ -97,9 +97,9 @@ window.userStatusDatabaseRefs = window.userStatusDatabaseRefs || {};
 window.connectedRefs = window.connectedRefs || {};
 window.callbacks = window.callbacks || {};
 // 初始化在線狀態監測
-function initializePresence(pathPtr, idPtr) {
-    const path = UTF8ToString(pathPtr);
-    const id = UTF8ToString(idPtr);
+// path = 監測路徑
+// id = 監測ID
+function initializePresence(path, id) {
     console.log("Start Listener Connection State:" + id);
 
     var userStatusDatabaseRef = firebase.database().ref(path);
@@ -139,8 +139,8 @@ function initializePresence(pathPtr, idPtr) {
 }
 
 // 移除在線狀態監測
-function removePresenceListener(userId) {
-    const id = UTF8ToString(idPtr);
+// 監測ID
+function removePresenceListener(id) {
     console.log("Remove Listener Connection State:" + id);
 
     var connectedRef = window.connectedRefs[id];
