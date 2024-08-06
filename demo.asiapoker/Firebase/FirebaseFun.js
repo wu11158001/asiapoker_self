@@ -1,8 +1,3 @@
-//連線監聽資料
-window.userStatusDatabaseRefs = window.userStatusDatabaseRefs || {};
-window.connectedRefs = window.connectedRefs || {};
-window.callbacks = window.callbacks || {};
-
 // Firebase初始化
 function initializeFirebase() {
     // Firebase 配置
@@ -97,6 +92,8 @@ function verifyCode(code, type) {
         }
       });
 }
+
+
 
 /*
 // 觸發Recaptcha驗證
