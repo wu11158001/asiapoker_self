@@ -147,12 +147,17 @@ function removePresenceListener(id) {
     var connectedCallback = window.callbacks[id];
 
     if (connectedRef && connectedCallback) {
+        console.log("Removing listener...");
         connectedRef.off("value", connectedCallback);
-
-        delete window.userStatusDatabaseRefs[id];
-        delete window.connectedRefs[id];
-        delete window.callbacks[id];
+        console.log("Listener removed for ID: " + id);
+    } else {
+        console.log("No listener found for ID: " + id);
     }
+
+    // 确保删除引用
+    delete window.userStatusDatabaseRefs[id];
+    delete window.connectedRefs[id];
+    delete window.callbacks[id];
 }
 
 //當文檔加載完成時
